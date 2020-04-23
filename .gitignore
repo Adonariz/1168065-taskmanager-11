@@ -1,8 +1,22 @@
 * text eol=lf
 
+Thumbs.db
+build/
+node_modules/
+.vscode/
+.DS_Store
+.idea
+
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.webp binary
 *.woff binary
 *.woff2 binary
+*.ai
+*.log
+*.pdf
+*.psd
+*.sublime*
+
+npm-debug.log*
