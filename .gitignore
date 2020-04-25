@@ -1,22 +1,14 @@
-* text eol=lf
-
-Thumbs.db
-build/
-node_modules/
-.vscode/
+# Файлы и папки операционной системы
 .DS_Store
+Thumbs.db
+
+# Файлы редактора
 .idea
-
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.webp binary
-*.woff binary
-*.woff2 binary
-*.ai
-*.log
-*.pdf
-*.psd
 *.sublime*
+.vscode
 
-npm-debug.log*
+# Вспомогательные файлы
+*.log*
+node_modules/
+
+# Файлы сборки (допишите самостоятельно)
