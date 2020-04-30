@@ -10,6 +10,7 @@ import {generateTasks} from "./mock/task";
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
+const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 // Функция рендеринга разметки
 const render = (container, template, place = `beforeend`) => {
@@ -33,7 +34,7 @@ render(boardElement, createSortingTemplate(), `afterbegin`);
 const tasks = generateTasks(TASK_COUNT);
 
 const taskListElement = siteMainElement.querySelector(`.board__tasks`);
-render(taskListElement, createTaskEditTemplate());
+render(taskListElement, createTaskEditTemplate(tasks[0]));
 
 let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 
@@ -42,3 +43,17 @@ tasks.slice(1, showingTasksCount)
 
 // Рендеринг кнопки LOAD MORE
 render(boardElement, createLoadMoreButtonTemplate());
+
+const loadMoreButton = boardElement.querySelector(`.load-more`);
+
+loadMoreButton.addEventListener(`click`, () => {
+  const prevTasksCount = showingTasksCount;
+  showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
+
+  tasks.slice(prevTasksCount, showingTasksCount)
+    .forEach((task) => render(taskListElement, createTaskTemplate(task)));
+
+  if (showingTasksCount >= tasks.length) {
+    loadMoreButton.remove();
+  }
+});
