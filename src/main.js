@@ -10,7 +10,6 @@ import {generateTasks} from "./mock/task.js";
 import {generateFilters} from "./mock/filter.js";
 import {render, RenderPosition} from "./utils.js";
 
-
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
@@ -20,9 +19,9 @@ const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 const renderTask = (taskListElement, task) => {
   const taskComponent = new TaskComponent(task);
-  const taskEditComponent = new TaskEditComponent(task);
-
   const editButton = taskComponent.getElement().querySelector(`.card__btn--edit`);
+
+  const taskEditComponent = new TaskEditComponent(task);
   const editForm = taskEditComponent.getElement().querySelector(`form`);
 
   const onEditButtonClick = () => {
@@ -35,22 +34,24 @@ const renderTask = (taskListElement, task) => {
   };
 
   editButton.addEventListener(`click`, onEditButtonClick);
-  editForm.addEventListener(`click`, onEditFormSubmit);
+  editForm.addEventListener(`submit`, onEditFormSubmit);
 
   render(taskListElement, taskComponent.getElement(), RenderPosition.BEFOREEND);
 };
+
 
 const renderBoard = (boardComponent, tasks) => {
   render(boardComponent.getElement(), new SortComponent().getElement(), RenderPosition.BEFOREEND);
   render(boardComponent.getElement(), new TasksComponent().getElement(), RenderPosition.BEFOREEND);
 
   const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
-  const loadMoreButtonComponent = new LoadMoreButtonComponent();
 
   let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 
   tasks.slice(0, showingTasksCount)
     .forEach((task) => renderTask(taskListElement, task));
+
+  const loadMoreButtonComponent = new LoadMoreButtonComponent();
 
   const onLoadMoreButtonClick = () => {
     const prevTasksCount = showingTasksCount;
@@ -65,9 +66,8 @@ const renderBoard = (boardComponent, tasks) => {
     }
   };
 
+  loadMoreButtonComponent.getElement().addEventListener(`click`, onLoadMoreButtonClick);
   render(boardComponent.getElement(), loadMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
-
-  loadMoreButtonComponent.getElement().addEventListener(`click`, onLoadMoreButtonClick());
 };
 
 const filters = generateFilters();
