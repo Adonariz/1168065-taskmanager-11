@@ -1,13 +1,14 @@
-import {createSiteMenuTemplate} from "./components/site-menu";
-import {createSortingTemplate} from "./components/sort";
-import {createFilterTemplate} from "./components/filter";
-import {createTaskTemplate} from "./components/task";
-import {createTaskEditTemplate} from "./components/task-edit";
-import {createLoadMoreButtonTemplate} from "./components/load-more-button";
-import {createBoardTemplate} from "./components/board";
-import {generateFilters} from "./mock/filter";
-import {generateTasks} from "./mock/task";
-import {render, RenderPosition} from "./utils";
+import BoardComponent from "./components/board.js";
+import FilterComponent from "./components/filter.js";
+import LoadMoreButtonComponent from "./components/load-more-button.js";
+import TaskEditComponent from "./components/task-edit.js";
+import TaskComponent from "./components/task.js";
+import TasksComponent from "./components/tasks.js";
+import SiteMenuComponent from "./components/site-menu.js";
+import SortComponent from "./components/sort.js";
+import {generateTasks} from "./mock/task.js";
+import {generateFilters} from "./mock/filter.js";
+import {render, RenderPosition} from "./utils.js";
 
 
 const TASK_COUNT = 22;
