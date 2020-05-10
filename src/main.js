@@ -7,15 +7,12 @@ import {createLoadMoreButtonTemplate} from "./components/load-more-button";
 import {createBoardTemplate} from "./components/board";
 import {generateFilters} from "./mock/filter";
 import {generateTasks} from "./mock/task";
+import {render, RenderPosition} from "./utils";
+
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
-
-// Функция рендеринга разметки
-const render = (container, template, place = `beforeend`) => {
-  container.insertAdjacentHTML(place, template);
-};
 
 // Рендеринг фильтров
 const siteMainElement = document.querySelector(`.main`);
