@@ -1,5 +1,5 @@
 import {createSiteMenuTemplate} from "./components/site-menu";
-import {createSortingTemplate} from "./components/sorting";
+import {createSortingTemplate} from "./components/sort";
 import {createFilterTemplate} from "./components/filter";
 import {createTaskTemplate} from "./components/task";
 import {createTaskEditTemplate} from "./components/task-edit";
