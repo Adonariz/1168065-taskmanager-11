@@ -4,6 +4,7 @@ import LoadMoreButtonComponent from "./components/load-more-button.js";
 import TaskEditComponent from "./components/task-edit.js";
 import TaskComponent from "./components/task.js";
 import TasksComponent from "./components/tasks.js";
+import NoTasksComponent from "./components/no-tasks";
 import SiteMenuComponent from "./components/site-menu.js";
 import SortComponent from "./components/sort.js";
 import {generateTasks} from "./mock/task.js";
@@ -24,23 +25,44 @@ const renderTask = (taskListElement, task) => {
   const taskEditComponent = new TaskEditComponent(task);
   const editForm = taskEditComponent.getElement().querySelector(`form`);
 
-  const onEditButtonClick = () => {
+  const replaceTaskToEdit = () => {
     taskListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement());
   };
 
-  const onEditFormSubmit = (evt) => {
-    evt.preventDefault();
+  const replaceEditToTask = () => {
     taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
   };
 
-  editButton.addEventListener(`click`, onEditButtonClick);
-  editForm.addEventListener(`submit`, onEditFormSubmit);
+  const onEscKeyDown = (evt) => {
+    if (evt.key === `Escape`) {
+      replaceEditToTask();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  editButton.addEventListener(`click`, () => {
+    replaceTaskToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
+  editForm.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+    replaceEditToTask();
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  });
 
   render(taskListElement, taskComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
 
 const renderBoard = (boardComponent, tasks) => {
+  const isAllTasksArchived = tasks.every((task) => task.isArchive);
+
+  if (isAllTasksArchived) {
+    render(boardComponent.getElement(), new NoTasksComponent().getElement(), RenderPosition.BEFOREEND);
+    return;
+  }
+
   render(boardComponent.getElement(), new SortComponent().getElement(), RenderPosition.BEFOREEND);
   render(boardComponent.getElement(), new TasksComponent().getElement(), RenderPosition.BEFOREEND);
 
