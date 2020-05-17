@@ -1,5 +1,5 @@
 import {COLORS, DAYS, MONTH_NAMES} from "../const";
-import {createElement, formatTime} from "../utils";
+import {formatTime} from "../utils";
 import AbstractComponent from "./abstract-component";
 
 
