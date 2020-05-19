@@ -88,6 +88,10 @@ export default class BoardController {
       if (showingTasksCount >= tasks.length) {
         remove(this._loadMoreButtonComponent);
       }
+
+      this._sortComponent.setSortTypeChangeHandler(() => {
+
+      });
     });
   }
 }
