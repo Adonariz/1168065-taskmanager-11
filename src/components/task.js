@@ -34,9 +34,9 @@ const createTaskTemplate = (task) => {
       <div class="card__form">
         <div class="card__inner">
           <div class="card__control">
-            ${editButton};
-            ${archiveButton};
-            ${favoritesButton};
+            ${editButton}
+            ${archiveButton}
+            ${favoritesButton}
           </div>
 
           <div class="card__color-bar">
