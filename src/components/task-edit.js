@@ -49,14 +49,13 @@ const createRepeatingDaysMarkup = (days, repeatingDays) => {
     .join(`\n`);
 };
 
-
 const createTaskEditTemplate = (task, options = {}) => {
   const {description, dueDate, color} = task;
   const {isDateShowing, isRepeatingTask, activeRepeatingDays} = options;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
-
-  const isBlockSaveButton = (isDateShowing && isRepeatingTask) || (isRepeatingTask && !isRepeating(activeRepeatingDays));
+  const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
+    (isRepeatingTask && !isRepeating(activeRepeatingDays));
 
   const date = (isDateShowing && dueDate) ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
   const time = (isDateShowing && dueDate) ? formatTime(dueDate) : ``;
@@ -101,21 +100,21 @@ const createTaskEditTemplate = (task, options = {}) => {
                         value="${date} ${time}"
                       />
                     </label>
-                  </fieldset>` : ``}
+                </fieldset>` : ``}
                 <button class="card__repeat-toggle" type="button">
                   repeat:<span class="card__repeat-status">${isRepeatingTask ? `yes` : `no`}</span>
                 </button>
-                  ${isRepeatingTask ? `<fieldset class="card__repeat-days">
+                ${isRepeatingTask ? `<fieldset class="card__repeat-days">
                     <div class="card__repeat-days-inner">
                       ${repeatingDaysMarkup}
                     </div>
                   </fieldset>` : ``}
               </div>
-            </div>
-            <div class="card__colors-inner">
-              <h3 class="card__colors-title">Color</h3>
-              <div class="card__colors-wrap">
-                ${colorsMarkup}
+              <div class="card__colors-inner">
+                <h3 class="card__colors-title">Color</h3>
+                <div class="card__colors-wrap">
+                  ${colorsMarkup}
+                </div>
               </div>
             </div>
           </div>
@@ -145,7 +144,7 @@ export default class TaskEdit extends AbstractSmartComponent {
   getTemplate() {
     return createTaskEditTemplate(this._task, {
       isDateShowing: this._isDateShowing,
-      isRepeating: this._isRepeatingTask,
+      isRepeatingTask: this._isRepeatingTask,
       activeRepeatingDays: this._activeRepeatingDays,
     });
   }
