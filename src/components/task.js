@@ -1,5 +1,4 @@
-import {MONTH_NAMES} from "../const";
-import {formatTime} from "../utils/common";
+import {formatDate, formatTime} from "../utils/common";
 import AbstractComponent from "./abstract-component";
 
 const createButtonMarkup = (name, isActive = true) => {
@@ -19,7 +18,7 @@ const createTaskTemplate = (task) => {
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isDateShowing = !!dueDate;
 
-  const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
+  const date = isDateShowing ? formatDate(dueDate) : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
 
   const editButton = createButtonMarkup(`edit`);
