@@ -1,5 +1,10 @@
 import AbstractComponent from "./abstract-component";
 
+const FILTER_ID_PREFIX = `filter__`;
+
+const getFilterNameById = (id) => id.substring(FILTER_ID_PREFIX.length);
+
+
 // Создает разметку компонента фильтра
 const createFilterMarkup = (filter, isChecked) => {
   const {name, count} = filter;
@@ -20,7 +25,7 @@ const createFilterMarkup = (filter, isChecked) => {
 
 // Отрисовывает блок фильтров
 const createFilterTemplate = (filters) => {
-  const filtersMarkup = filters.map((it, i) => createFilterMarkup(it, i === 0)).join(`\n`);
+  const filtersMarkup = filters.map((it) => createFilterMarkup(it, it.checked)).join(`\n`);
 
   return (
     `<section class="main__filter filter container">
@@ -30,12 +35,20 @@ const createFilterTemplate = (filters) => {
 };
 
 export default class Filter extends AbstractComponent {
-  constructor(task) {
+  constructor(filters) {
     super();
-    this._task = task;
+
+    this._filters = filters;
   }
 
   getTemplate() {
-    return createFilterTemplate(this._task);
+    return createFilterTemplate(this._filters);
+  }
+
+  setFilterChangeHandler(handler) {
+    this.getElement().addEventListener(`change`, (evt) => {
+      const filterName = getFilterNameById(evt.target.id);
+      handler(filterName);
+    });
   }
 }
